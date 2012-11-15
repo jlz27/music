@@ -3,10 +3,7 @@ package gui;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 
 public class ImageComponent extends JComponent {
@@ -16,13 +13,8 @@ public class ImageComponent extends JComponent {
 	
 	BufferedImage img;
 	
-	public ImageComponent(String imageName) {
-		try {
-			this.img = ImageIO.read(new File(imageName));
-		} catch (IOException e) {
-			this.img = null;
-			e.printStackTrace();
-		}
+	public ImageComponent(BufferedImage img) {
+		this.img = img;
 	}
 	
 	@Override

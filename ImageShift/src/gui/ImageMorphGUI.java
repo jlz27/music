@@ -1,7 +1,13 @@
 package gui;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+
+import algorithms.ThreshholdSegment;
 
 public class ImageMorphGUI extends JFrame implements Runnable{
 	private static final long serialVersionUID = 1L;
@@ -14,7 +20,14 @@ public class ImageMorphGUI extends JFrame implements Runnable{
 	}
 	
 	private void createAndShowGUI() {
-		this.add(new ImageComponent(RESOURCE_PATH + "cat.jpg"));
+		BufferedImage img = null;
+		try {
+			img = ImageIO.read(new File(RESOURCE_PATH + "cornell.jpg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		ThreshholdSegment segment = new ThreshholdSegment(img);
+		this.add(new ImageComponent(segment.morphPixels(0)));
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.pack();
 		this.setVisible(true);
