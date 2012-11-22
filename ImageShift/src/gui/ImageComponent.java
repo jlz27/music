@@ -6,28 +6,35 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JComponent;
 
+import algorithms.AbstractImageMorph;
+
 public class ImageComponent extends JComponent {
 	private static final long serialVersionUID = 1L;
-
-	private static final int DEFAULT_DIMENSION = 100;
 	
-	BufferedImage img;
+	AbstractImageMorph morphAlg;
 	
-	public ImageComponent(BufferedImage img) {
-		this.img = img;
+	public ImageComponent(AbstractImageMorph morphAlg) {
+		this.morphAlg = morphAlg;
+	}
+	
+	public void setImage(BufferedImage srcImg, BufferedImage destImg) {
+		this.morphAlg.setSourceImg(srcImg);
+		this.morphAlg.setDestImg(destImg);
+		this.repaint();
+	}
+	
+	public void morphPixels(int numPixels) {
+		this.morphAlg.morphPixels(numPixels);
+		this.repaint();
 	}
 	
 	@Override
 	public Dimension getPreferredSize(){
-		if (this.img == null) {
-			return new Dimension(DEFAULT_DIMENSION, DEFAULT_DIMENSION);
-		} else {
-			return new Dimension(this.img.getWidth(null), this.img.getHeight(null));
-		}
+		return new Dimension(ImageMorphGUI.IMAGE_WIDTH, ImageMorphGUI.IMAGE_HEIGHT);
 	}
 	
 	@Override
 	public void paint(Graphics g) {
-		g.drawImage(img, 0, 0, null);
+		g.drawImage(this.morphAlg.getSourceImage(), 0, 0, null);
 	}
 }

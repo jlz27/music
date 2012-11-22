@@ -1,33 +1,37 @@
 package algorithms;
 
+import gui.ImageMorphGUI;
+
 import java.awt.image.BufferedImage;
 
 public abstract class AbstractImageMorph {
 	
-	private final BufferedImage img;
-	private final int width, height;
+	private BufferedImage sourceImg, destImg;
+	private final int width = ImageMorphGUI.IMAGE_WIDTH, height = ImageMorphGUI.IMAGE_HEIGHT;
 	
-	public AbstractImageMorph(BufferedImage img) {
-		this.img = img;
-		this.width = img.getWidth();
-		this.height = img.getHeight();
+	public void setSourceImg(BufferedImage sourceImg) {
+		this.sourceImg = new BufferedImage(sourceImg.getColorModel(), sourceImg.copyData(null), sourceImg.isAlphaPremultiplied(), null);
 	}
 	
-	
-	public BufferedImage getImg() {
-		return img;
+	public void setDestImg(BufferedImage destImg) {
+		this.destImg = destImg;
 	}
-
-
+	
+	public BufferedImage getSourceImage() {
+		return this.sourceImg;
+	}
+	
+	public BufferedImage getDestImage() {
+		return this.destImg;
+	}
+	
 	public int getWidth() {
 		return width;
 	}
 
-
 	public int getHeight() {
 		return height;
 	}
-
 
 	public abstract BufferedImage morphPixels(int numPixels);
 }

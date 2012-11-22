@@ -1,5 +1,6 @@
 package algorithms;
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.Collection;
 import java.util.HashMap;
@@ -11,13 +12,9 @@ public class KMeans extends AbstractImageMorph{
 	public static int K = 5;
 	public static int DISTANCE_WEIGHT = 2;
 	
-	public KMeans(BufferedImage img) {
-		super(img);
-	}
-
 	private double computeDist(int x, int y, Pair<Integer, Integer> b) {
-		int pixelA = this.getImg().getRGB(x, y);
-		int pixelB = this.getImg().getRGB(b.first, b.second);
+		int pixelA =  this.getDestImage().getRGB(x, y);
+		int pixelB = this.getDestImage().getRGB(b.first, b.second);
 		int redA = (pixelA >> 16) & 0xFF, blueA = (pixelA >> 8) & 0xFF, greenA = pixelA & 0xFF;
 		int redB = (pixelB >> 16) & 0xFF, blueB = (pixelB >> 8) & 0xFF, greenB = pixelB & 0xFF;
 		
@@ -86,7 +83,7 @@ public class KMeans extends AbstractImageMorph{
 			newCenters = computeNewCenters(pixelSets);
 		} while(!checkSetSame(oldCenters, newCenters));
 		
-		return this.getImg();
+		return this.getDestImage();
 	}
 
 }
